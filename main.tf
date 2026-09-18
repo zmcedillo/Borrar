@@ -13,8 +13,7 @@ terraform {
 
 variable "api_secret_token" {
   type        = string
-  description = "Token de API para integración con servicios externos"
-  default     = "SUPER_SECRET_PLAIN_TEXT_TOKEN_12345!" 
+  description = "Token de API para integración con servicios externos" 
   sensitive   = true
 }
 

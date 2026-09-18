@@ -1,0 +1,8 @@
+title = "Gitleaks custom configuration"
+
+[[rules]]
+id = "hardcoded-api-secret"
+description = "Detecta secretos de API definidos directamente en variables de Terraform"
+regex = '''(?i)default\s*=\s*"[^"]*(SECRET|TOKEN)[^"]*"'''
+secretGroup = 0
+keywords = ["default", "secret", "token"]
