@@ -1,0 +1,32 @@
+name: "OpenTofu Security & Plan Pipeline"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  opentofu:
+    name: "Validate and Plan OpenTofu"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.6.2
+
+      - name: Inicializar OpenTofu
+        run: tofu init
+
+      - name: Validar Sintaxis
+        run: tofu validate
+
+      - name: Generar Plan de Infraestructura (Uso de Secretos)
+        env:
+          TF_VAR_api_secret_token: ${{ secrets.API_SECRET_TOKEN }}
+        run: tofu plan
